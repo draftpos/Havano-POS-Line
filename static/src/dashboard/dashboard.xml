@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="pos_license_management.Dashboard">
+        <div class="o_action_manager">
+            <div class="o_pos_license_dashboard container-fluid py-4">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2>POS License Dashboard</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card o_stat_card shadow-sm cursor-pointer" t-on-click="() => this.openLicenses()">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted">Total Licenses</h5>
+                                <h2 class="card-text text-primary" t-esc="state.kpi.total"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card o_stat_card shadow-sm cursor-pointer" t-on-click="() => this.openLicenses('active')">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted">Active (inc. Lifetime)</h5>
+                                <h2 class="card-text text-success" t-esc="state.kpi.active + state.kpi.lifetime"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card o_stat_card shadow-sm cursor-pointer" t-on-click="() => this.openLicenses('expiring')">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted">Expiring Soon</h5>
+                                <h2 class="card-text text-warning" t-esc="state.kpi.expiring"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card o_stat_card shadow-sm cursor-pointer" t-on-click="() => this.openLicenses('expired')">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted">Expired</h5>
+                                <h2 class="card-text text-danger" t-esc="state.kpi.expired"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

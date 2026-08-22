@@ -25,21 +25,13 @@ export class PosLicenseDashboard extends Component {
     }
 
     async fetchData() {
-        const result = await this.orm.readGroup("pos.license", [], ["status"], ["status"]);
-        
-        let total = 0;
-        let active = 0;
-        let expiring = 0;
-        let expired = 0;
-        let lifetime = 0;
-
-        for (const group of result) {
-            total += group.status_count;
-            if (group.status === "active") active = group.status_count;
-            else if (group.status === "expiring") expiring = group.status_count;
-            else if (group.status === "expired") expired = group.status_count;
-            else if (group.status === "lifetime") lifetime = group.status_count;
-        }
+        const [total, active, expiring, expired, lifetime] = await Promise.all([
+            this.orm.searchCount("pos.license", []),
+            this.orm.searchCount("pos.license", [["status", "=", "active"]]),
+            this.orm.searchCount("pos.license", [["status", "=", "expiring"]]),
+            this.orm.searchCount("pos.license", [["status", "=", "expired"]]),
+            this.orm.searchCount("pos.license", [["status", "=", "lifetime"]]),
+        ]);
 
         this.state.kpi = { total, active, expiring, expired, lifetime };
     }

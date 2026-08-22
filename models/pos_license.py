@@ -83,6 +83,4 @@ class PosLicense(models.Model):
             full_hash = hashlib.sha256(raw_payload.encode('utf-8')).hexdigest().upper()
             
             sig_hex = full_hash[:16]
-            raw_key = days_hex + sig_hex
-            
-            record.license_key = f"{raw_key[:5]}-{raw_key[5:10]}-{raw_key[10:15]}-{raw_key[15:20]}"
+            record.license_key = f"{days_hex}{sig_hex}".replace("-", "")
